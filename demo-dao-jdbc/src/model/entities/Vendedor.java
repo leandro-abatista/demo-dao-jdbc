@@ -9,7 +9,6 @@ public class Vendedor implements Serializable {
 	
 	private Long id;
 	private String nome;
-	private String telefone;
 	private String email;
 	private Date dataNascimento;
 	private Double salarioBase;
@@ -19,12 +18,10 @@ public class Vendedor implements Serializable {
 	public Vendedor() {
 	}
 
-	public Vendedor(Long id, String nome, String telefone, String email, Date dataNascimento, Double salarioBase,
+	public Vendedor(Long id, String nome, String email, Date dataNascimento, Double salarioBase,
 			Departamento departamento) {
-		super();
 		this.id = id;
 		this.nome = nome;
-		this.telefone = telefone;
 		this.email = email;
 		this.dataNascimento = dataNascimento;
 		this.salarioBase = salarioBase;
@@ -45,14 +42,6 @@ public class Vendedor implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public String getTelefone() {
-		return telefone;
-	}
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
 	}
 
 	public String getEmail() {
@@ -114,7 +103,7 @@ public class Vendedor implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Vendedor [id=" + id + ", nome=" + nome + ", telefone=" + telefone + ", email=" + email
+		return "Vendedor [id=" + id + ", nome=" + nome + ", email=" + email
 				+ ", dataNascimento=" + dataNascimento + ", salarioBase=" + salarioBase + ", departamento="
 				+ departamento + "]";
 	}
