@@ -34,6 +34,14 @@ public class program3 {
 		Product produto = new Product(null, "cd leandro borges Deus e eu", 200.00, 300.00, 20);
 		productDao.insert(produto);
 		System.out.println("Producto inserido com sucesso!\nId inserido: " + produto.getId());
+		
+		System.out.println("\n=== Teste 5: product update ======");
+		pro = productDao.findById(5L);
+		pro.setDescription("roupa velha");
+		pro.setPriceSale(50.00);
+		productDao.update(pro);
+		System.out.println("Update completed!\nId atualizado: " + pro.getId());
+		
 	}
 
 }

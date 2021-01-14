@@ -58,7 +58,39 @@ public class ProductDaoImplJDBC implements ProductDao {
 
 	@Override
 	public void update(Product obj) {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
 
+		try {
+
+			ps = conn.prepareStatement(
+					"UPDATE product SET description = ?, pricePucharse = ?, priceSale = ?, amount = ? WHERE Id = ?"
+					, Statement.RETURN_GENERATED_KEYS);
+			ps.setString(1, obj.getDescription());
+			ps.setDouble(2, obj.getPricePurchase());
+			ps.setDouble(3, obj.getPriceSale());
+			ps.setInt(4, obj.getAmount());
+			ps.setLong(5, obj.getId());
+
+			int rowsAffect = ps.executeUpdate();
+
+			if (rowsAffect > 0) {
+				rs = ps.getGeneratedKeys();
+
+				if (rs.next()) {
+					Long id = rs.getLong(1);
+					obj.setId(id);
+				}
+			} else {
+				throw new DbException("Erro inesperado, nenhuma linha foi afetada!");
+			}
+
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(ps);
+			DB.closeResultSet(rs);
+		}
 	}
 
 	@Override
