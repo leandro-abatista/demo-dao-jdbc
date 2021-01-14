@@ -15,5 +15,5 @@ public interface DepartamentoDao {
 	public Departamento findById(Long id);
 	
 	List<Departamento> findAll();
-
+	
 }
