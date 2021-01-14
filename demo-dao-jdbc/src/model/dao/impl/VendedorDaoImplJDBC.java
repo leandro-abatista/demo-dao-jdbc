@@ -1,9 +1,11 @@
 package model.dao.impl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,8 +29,43 @@ public class VendedorDaoImplJDBC implements VendedorDao{
 
 	@Override
 	public void insert(Vendedor obj) {
-		// TODO Auto-generated method stub
+		PreparedStatement ps = null;
+		ResultSet rs = null;
 		
+		try {
+			
+			ps = conn.prepareStatement(
+					"INSERT INTO seller " +
+					"(Name, Email, BirthDate, BaseSalary, DepartmentId) " +
+					"VALUES " +
+					"(?, ?, ?, ?, ?)"
+					,Statement.RETURN_GENERATED_KEYS);//essa linha retorna o id do objeto inserido no banco de dados
+			
+			ps.setString(1, obj.getNome());
+			ps.setString(2, obj.getEmail());
+			ps.setDate(3, new java.sql.Date(obj.getDataNascimento().getTime()));
+			ps.setDouble(4, obj.getSalarioBase());
+			ps.setLong(5, obj.getDepartamento().getId());
+			
+			int rowsAffect = ps.executeUpdate();
+			
+			if (rowsAffect > 0) {
+				rs = ps.getGeneratedKeys();
+				
+				if (rs.next()) {
+					Long id = rs.getLong(1);
+					obj.setId(id);
+				}
+			} else {
+				throw new DbException("Erro inesperado, nenhuma linha foi afetada!");
+			}
+			
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(ps);
+			DB.closeResultSet(rs);
+		}
 	}
 
 	@Override
