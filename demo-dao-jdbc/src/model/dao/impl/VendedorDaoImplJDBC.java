@@ -102,7 +102,23 @@ public class VendedorDaoImplJDBC implements VendedorDao{
 
 	@Override
 	public void deleteById(Long id) {
-		// TODO Auto-generated method stub
+		PreparedStatement ps = null;
+		
+		try {
+			
+			ps = conn.prepareStatement("DELETE FROM seller WHERE Id = ?");
+			ps.setLong(1, id);
+			int rowsAffect = ps.executeUpdate();
+			
+			if (rowsAffect == 0) {
+				throw new DbException("Id informado não existe!");
+			}
+			
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(ps);
+		}
 		
 	}
 
