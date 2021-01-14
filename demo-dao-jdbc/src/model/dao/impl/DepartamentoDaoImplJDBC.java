@@ -94,7 +94,25 @@ public class DepartamentoDaoImplJDBC implements DepartamentoDao {
 
 	@Override
 	public void deleteById(Long id) {
+		PreparedStatement ps = null;
 
+		try {
+
+			ps = conn.prepareStatement("DELETE FROM department WHERE Id = ?",
+					Statement.RETURN_GENERATED_KEYS);// essa linha retorna o id do objeto inserido no banco de dados
+			ps.setLong(1, id);
+			
+			int rowsAffetc = ps.executeUpdate();
+			
+			if (rowsAffetc == 0) {
+				throw new DbException("Id informado não existe!");
+			} 
+
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(ps);
+		}
 	}
 
 	private Departamento instantiateDepartment(ResultSet rs) throws SQLException {

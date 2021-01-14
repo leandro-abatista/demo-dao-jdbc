@@ -1,6 +1,7 @@
 package application;
 
 import java.util.List;
+import java.util.Scanner;
 
 import model.dao.DaoFactory;
 import model.dao.DepartamentoDao;
@@ -9,6 +10,8 @@ import model.entities.Departamento;
 public class Program2 {
 
 	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
 		
 		DepartamentoDao departamentoDao = DaoFactory.createDepartamentoDao();
 		
@@ -28,11 +31,19 @@ public class Program2 {
 		departamentoDao.insert(departamento);
 		System.out.println("Departamento inserido com sucesso!\nId inserido: " + departamento.getId());
 		
-		System.out.println("\n=== Teste 3: Department update ======");
+		System.out.println("\n=== Teste 4: Department update ======");
 		departamento = departamentoDao.findById(9L);
 		departamento.setNome("Drogaria");
 		departamentoDao.update(departamento);
 		System.out.println("Update Completed!\nId de atualização: " + departamento.getId());
+		
+		System.out.println("\n=== Teste 5: Department delete ======");
+		System.out.println("Informe um id para deletar: ");
+		Long id = sc.nextLong();
+		departamentoDao.deleteById(id);
+		System.out.println("Delete completed!");
+		
+		sc.close();
 	}
 
 }
