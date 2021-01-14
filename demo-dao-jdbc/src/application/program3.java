@@ -36,12 +36,15 @@ public class program3 {
 		System.out.println("Producto inserido com sucesso!\nId inserido: " + produto.getId());
 		
 		System.out.println("\n=== Teste 5: product update ======");
-		pro = productDao.findById(5L);
+		pro = productDao.findById(6L);
 		pro.setDescription("roupa velha");
 		pro.setPriceSale(50.00);
 		productDao.update(pro);
 		System.out.println("Update completed!\nId atualizado: " + pro.getId());
 		
+		System.out.println("\n=== Teste 6: product delete ======");
+		productDao.deleteById(12L);
+		System.out.println("Delete completed!");
 	}
 
 }

@@ -80,7 +80,8 @@ public class ProductDaoImplJDBC implements ProductDao {
 				if (rs.next()) {
 					Long id = rs.getLong(1);
 					obj.setId(id);
-				}
+				} 
+				
 			} else {
 				throw new DbException("Erro inesperado, nenhuma linha foi afetada!");
 			}
@@ -95,7 +96,28 @@ public class ProductDaoImplJDBC implements ProductDao {
 
 	@Override
 	public void deleteById(Long id) {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
 
+		try {
+
+			ps = conn.prepareStatement(
+					"DELETE FROM product WHERE Id = ?"
+					, Statement.RETURN_GENERATED_KEYS);
+			ps.setLong(1, id);
+
+			int rowsAffect = ps.executeUpdate();
+
+			if (rowsAffect == 0) {
+				throw new DbException("Id informado não existe!");
+			} 
+
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(ps);
+			DB.closeResultSet(rs);
+		}
 	}
 
 	@Override
