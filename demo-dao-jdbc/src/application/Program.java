@@ -38,6 +38,11 @@ public class Program {
 		vendedorDao.insert(vend);
 		System.out.println("Inserido com sucesso!\nId inserido: " + vend.getId());
 		
+		System.out.println("\n=== Teste 5: Seller update ======");
+		vend = vendedorDao.findById(7L);
+		vend.setNome("Willian Nobre");
+		vendedorDao.update(vend);
+		System.out.println("Update Completed!");
 	}
 
 }
