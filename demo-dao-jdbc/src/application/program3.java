@@ -29,6 +29,11 @@ public class program3 {
 		for (Product product : list) {
 			System.out.println(product);
 		}
+		
+		System.out.println("\n=== Teste 4: product insert ======");
+		Product produto = new Product(null, "cd leandro borges Deus e eu", 200.00, 300.00, 20);
+		productDao.insert(produto);
+		System.out.println("Producto inserido com sucesso!\nId inserido: " + produto.getId());
 	}
 
 }
