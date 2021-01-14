@@ -22,6 +22,17 @@ public class Program2 {
 		for (Departamento departamento : list) {
 			System.out.println(departamento);
 		}
+		
+		System.out.println("\n=== Teste 3: Department insert ======");
+		Departamento departamento = new Departamento(null, "Calçados");
+		departamentoDao.insert(departamento);
+		System.out.println("Departamento inserido com sucesso!\nId inserido: " + departamento.getId());
+		
+		System.out.println("\n=== Teste 3: Department update ======");
+		departamento = departamentoDao.findById(9L);
+		departamento.setNome("Drogaria");
+		departamentoDao.update(departamento);
+		System.out.println("Update Completed!\nId de atualização: " + departamento.getId());
 	}
 
 }
